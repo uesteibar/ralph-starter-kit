@@ -127,10 +127,15 @@ if [ -f "$PRD_FILE" ]; then
     # Track current worktree
     echo "$WORKTREE_PATH" > "$LAST_WORKTREE_FILE"
 
-    # Create symlink to .ralph directory in worktree so Claude can find prd.json and progress.txt
-    if [ ! -L "$WORKTREE_PATH/.ralph" ]; then
-      ln -s "$SCRIPT_DIR" "$WORKTREE_PATH/.ralph"
-      echo "Created .ralph symlink in worktree"
+    # Copy .ralph directory to worktree (enables parallel execution with separate prd.json files)
+    if [ ! -d "$WORKTREE_PATH/.ralph" ]; then
+      mkdir -p "$WORKTREE_PATH/.ralph"
+      # Copy prd.json and progress.txt for this worktree's independent state
+      [ -f "$PRD_FILE" ] && cp "$PRD_FILE" "$WORKTREE_PATH/.ralph/"
+      [ -f "$PROGRESS_FILE" ] && cp "$PROGRESS_FILE" "$WORKTREE_PATH/.ralph/"
+      # Symlink CLAUDE.md since it's shared across all runs
+      ln -s "$SCRIPT_DIR/CLAUDE.md" "$WORKTREE_PATH/.ralph/CLAUDE.md"
+      echo "Created .ralph directory in worktree with copied prd.json"
     fi
 
     # Change to worktree directory for Claude execution
@@ -159,7 +164,10 @@ for i in $(seq 1 $MAX_ITERATIONS); do
   echo "  Ralph Iteration $i of $MAX_ITERATIONS"
   echo "==============================================================="
 
-  OUTPUT=$(claude --dangerously-skip-permissions --print < "$SCRIPT_DIR/CLAUDE.md" 2>&1 | tee /dev/stderr) || true
+  # Use worktree-local CLAUDE.md if in a worktree, otherwise use central one
+  CLAUDE_MD="${WORKTREE_PATH:+$WORKTREE_PATH/.ralph/CLAUDE.md}"
+  CLAUDE_MD="${CLAUDE_MD:-$SCRIPT_DIR/CLAUDE.md}"
+  OUTPUT=$(claude --dangerously-skip-permissions --print < "$CLAUDE_MD" 2>&1 | tee /dev/stderr) || true
 
   # Check for completion signal
   if echo "$OUTPUT" | grep -q "<promise>COMPLETE</promise>"; then
