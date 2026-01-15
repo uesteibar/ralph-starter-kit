@@ -48,6 +48,17 @@ ARCHIVE_DIR="$SCRIPT_DIR/archive"
 LAST_WORKTREE_FILE="$SCRIPT_DIR/.last-worktree"
 WORKTREES_DIR="$SCRIPT_DIR/.worktrees"
 
+# Detect main branch (could be 'main' or 'master')
+cd "$PROJECT_ROOT"
+if git rev-parse --verify main >/dev/null 2>&1; then
+  MAIN_BRANCH="main"
+elif git rev-parse --verify master >/dev/null 2>&1; then
+  MAIN_BRANCH="master"
+else
+  echo "Error: Could not find main or master branch."
+  exit 1
+fi
+
 # Archive previous run if worktree changed
 if [ -f "$PRD_FILE" ] && [ -f "$LAST_WORKTREE_FILE" ]; then
   CURRENT_BRANCH=$(jq -r '.branchName // empty' "$PRD_FILE" 2>/dev/null || echo "")
@@ -101,9 +112,9 @@ if [ -f "$PRD_FILE" ]; then
           exit 1
         }
       else
-        # Branch doesn't exist, create new branch from main
-        git worktree add -b "$BRANCH_NAME" "$WORKTREE_PATH" main 2>/dev/null || {
-          echo "Error: Failed to create worktree from main branch."
+        # Branch doesn't exist, create new branch from main/master
+        git worktree add -b "$BRANCH_NAME" "$WORKTREE_PATH" "$MAIN_BRANCH" 2>/dev/null || {
+          echo "Error: Failed to create worktree from $MAIN_BRANCH branch."
           exit 1
         }
       fi
