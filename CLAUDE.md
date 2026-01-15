@@ -95,7 +95,7 @@ After completing a user story, check if ALL stories have `passes: true`.
 If ALL stories are complete and passing:
 - Read through all the commits that are new in this branch
 - Read through the prd.json file
-- With all that knowledge, open a pull request against the main branch (using the `gh` cli)
+- With all that knowledge, open a pull request against the main branch (using the `gh` cli). Do not sign the PR as a code agent.
 - Once the Pull Request is created, reply with: <promise>COMPLETE</promise>
 
 If there are still stories with `passes: false`, end your response normally (another iteration will pick up the next story).

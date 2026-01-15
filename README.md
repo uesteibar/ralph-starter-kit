@@ -107,6 +107,8 @@ Adjust as needed.
 
 ### Step 3: Run Ralph
 
+**Simple usage (recommended):**
+
 ```bash
 .ralph/ralph.sh <number-of-iterations>
 ```
@@ -120,12 +122,32 @@ Ralph will:
 4. Stop when all stories pass or iterations are exhausted
 5. Open a PR when complete
 
+**Advanced usage (for more control):**
+
+If you need more control over the setup and execution phases, you can run them separately:
+
+```bash
+# Step 1: Setup the worktree
+.ralph/ralph_setup.sh
+
+# Step 2: Navigate to the worktree and run the agent
+cd .ralph/.worktrees/<branch-name>
+.ralph/ralph_run.sh <number-of-iterations>
+```
+
+This is useful when you want to:
+- Inspect or modify the worktree before running the agent
+- Run multiple iterations in separate terminal sessions
+- Debug setup or execution issues independently
+
 ### Step 4: Clean Up
 
 After merging (or abandoning) a feature:
 
 ```bash
 .ralph/ralph.sh cleanup
+# or
+.ralph/ralph_setup.sh cleanup
 ```
 
 This removes all Ralph worktrees.
@@ -164,7 +186,9 @@ This controls how existing documents are converted to `prd.json`. Customize it t
 ├── CLAUDE.md           # Agent instructions
 ├── README.md           # This file
 ├── init.sh             # Initialization script
-├── ralph.sh            # Main runner script
+├── ralph.sh            # Main runner (convenience wrapper)
+├── ralph_setup.sh      # Worktree setup script
+├── ralph_run.sh        # Agent execution loop
 ├── create_prd.sh       # PRD creation conversation
 ├── convert_prd.sh      # PRD conversion utility
 ├── create_prd.prompt   # PRD creation template
