@@ -1,6 +1,6 @@
 # Ralph - Autonomous Coding Agent
 
-Ralph is an autonomous coding agent that implements features from PRDs (Product Requirements Documents) using iterative AI-powered development. It works through user stories one at a time, committing progress, and learning from each iteration.
+Ralph is an autonomous coding agent that implements features from PRDs (Product Requirements Documents) using iterative AI-powered development. It works through user stories one at a time, committing progress, and learning from each iteration. This specific implementation uses the Claude Code CLI.
 
 ## Quick Start
 
