@@ -2,6 +2,8 @@
 
 Ralph is an autonomous coding agent that implements features from PRDs (Product Requirements Documents) using iterative AI-powered development. It works through user stories one at a time, committing progress, and learning from each iteration. This specific implementation uses the Claude Code CLI.
 
+Based on the [original article](https://ghuntley.com/ralph/) by Geoffrey Huntley and the implementation on https://github.com/snarktank/ralph.
+
 ## Quick Start
 
 Clone Ralph into your project's `.ralph` directory and initialize:
