@@ -82,7 +82,7 @@ Each story needs:
 - **Description:** "As a [user], I want [feature] so that [benefit]"
 - **Acceptance Criteria:** Verifiable checklist of what "done" means
 
-Each story should be small enough to implement in one focused session.
+Each story should be small enough to implement in one focused session. Whenever possible, user stories should be self contained: they can be automatically tested by themselves on a unit or integration level without depending on other stories.
 
 **Format:**
 ```markdown
@@ -99,6 +99,8 @@ Each story should be small enough to implement in one focused session.
 **Important:**
 - Acceptance criteria must be verifiable, not vague. "Works correctly" is bad. "Button shows confirmation dialog before deleting" is good.
 - **For any story with UI changes:** Always include "Verify in browser using dev-browser skill" as acceptance criteria. This ensures visual verification of frontend work.
+- Each story should have tests to verify the changes.
+- For any story involving database changes: Always include "All tests pass".
 
 ### 4. Functional Requirements
 Numbered list of specific functionalities:
@@ -182,6 +184,7 @@ Add priority levels to tasks so users can focus on what matters most. Tasks can 
 **Acceptance Criteria:**
 - [ ] Each task card shows colored priority badge (red=high, yellow=medium, gray=low)
 - [ ] Priority visible without hovering or clicking
+- [ ] Changes are tested in unit/integration tests
 - [ ] All tests pass
 - [ ] Verify in browser using dev-browser skill
 
@@ -202,6 +205,7 @@ Add priority levels to tasks so users can focus on what matters most. Tasks can 
 - [ ] Filter dropdown with options: All | High | Medium | Low
 - [ ] Filter persists in URL params
 - [ ] Empty state message when no tasks match filter
+- [ ] Changes are tested in unit/integration tests
 - [ ] All tests pass
 - [ ] Verify in browser using dev-browser skill
 
@@ -245,7 +249,7 @@ Before saving the PRD:
 
 - [ ] Asked clarifying questions with lettered options
 - [ ] Incorporated user's answers
-- [ ] User stories are small and specific
+- [ ] User stories are small, self-contained and specific
 - [ ] Functional requirements are numbered and unambiguous
 - [ ] Non-goals section defines clear boundaries
 - [ ] Saved to `.ralph/tasks/prd-[feature-name].md`

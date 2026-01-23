@@ -75,9 +75,17 @@ Only update AGENTS.md if you have **genuinely reusable knowledge** that would he
 ## Quality Requirements
 
 - ALL commits must pass the project's quality checks (typecheck, lint, test). Look through the codebase to find which are available.
+- All commits should have tests covering the new functionality (if applicable).
 - Do NOT commit broken code
 - Keep changes focused and minimal
 - Follow existing code patterns
+
+## Unit and Integration Testing
+
+1. Write unit tests for any new functions or modules you create.
+2. Update existing tests if you modify existing functionality.
+3. Whenever possible, use TDD (prioritize writing tests before implementation).
+4. Run the full test suite to ensure all tests pass before committing.
 
 ## Browser Testing
 
@@ -95,7 +103,7 @@ After completing a user story, check if ALL stories have `passes: true`.
 If ALL stories are complete and passing:
 - Read through all the commits that are new in this branch
 - Read through the prd.json file
-- With all that knowledge, open a pull request against the main branch (using the `gh` cli). Do not sign the PR as a code agent.
+- With all that knowledge, open a draft pull request against the main branch (using the `gh` cli). Do not sign the PR as a code agent.
 - Once the Pull Request is created, reply with: <promise>COMPLETE</promise>
 
 If there are still stories with `passes: false`, end your response normally (another iteration will pick up the next story).
