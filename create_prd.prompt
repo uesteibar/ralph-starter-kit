@@ -83,6 +83,7 @@ Each story needs:
 - **Acceptance Criteria:** Verifiable checklist of what "done" means
 
 Each story should be small enough to implement in one focused session. Whenever possible, user stories should be self contained: they can be automatically tested by themselves on a unit or integration level without depending on other stories.
+As much as possible, user stories should be about iterative progress towards an end goal, where each user story is as much of a proper, useful feature as possible, instead of isolated pieces of a larger design that do not serve any purpose on their own. Prefer terative progress over waterfall like piece-by-piece building.
 
 **Format:**
 ```markdown
